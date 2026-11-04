@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vectorizador de imágenes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">◈</span> Vectorizador</div>
+  <nav><a href="#como">Cómo funciona</a><a href="#faq">Preguntas</a></nav>
+</header>
+
+<main>
+  <section class="hero" id="app">
+    <h1>Convierte tu imagen en <em>vector</em> de alta calidad</h1>
+    <p class="sub">PNG, JPG, WebP, GIF o BMP → SVG limpio, con curvas reales y colores fieles. Escalable sin pérdida.</p>
+
+    <div id="drop" class="drop" tabindex="0">
+      <input id="file" type="file" accept="image/*" hidden>
+      <div class="drop-inner">
+        <div class="drop-icon">⬆</div>
+        <strong>Arrastra una imagen aquí</strong>
+        <span>o haz clic para elegir · también puedes pegar con Ctrl+V · máx. 25 MB</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <label>Tipo de imagen
+        <select id="preset">
+          <option value="auto">Automático (recomendado)</option>
+          <option value="alta">Alta fidelidad (color)</option>
+          <option value="logo">Logo / icono</option>
+          <option value="ilustracion">Ilustración</option>
+          <option value="foto">Fotografía</option>
+          <option value="bn">Blanco y negro / línea</option>
+        </select>
+      </label>
+      <button id="adv-toggle" class="link" type="button">Ajustes avanzados</button>
+    </div>
+    <div id="adv" class="adv" hidden>
+      <label>Colores máximos <output></output><input type="range" id="colors" min="2" max="64" value="24"></label>
+      <label>Fusión de capas <output></output><input type="range" id="layers" min="0" max="64" value="6"></label>
+      <label>Eliminar motas <output></output><input type="range" id="speckle" min="0" max="32" value="4"></label>
+      <label>Esquinas (ángulo) <output></output><input type="range" id="corners" min="0" max="180" value="60"></label>
+    <label class="chk"><input type="checkbox" id="snap" checked> Arcos exactos (círculos y elipses)</label>
+      <label class="chk"><input type="checkbox" id="smooth" checked> Bordes ultra limpios (curvas suavizadas)</label>
+      <label class="chk"><input type="checkbox" id="grad" checked> Degradados reales (en vez de bandas)</label>
+      <label class="chk"><input type="checkbox" id="gaps" checked> Rellenar huecos entre formas</label>
+    </div>
+  </section>
+
+  <section id="result" class="result" hidden>
+    <div class="bar">
+      <div id="stats" class="stats"></div>
+      <div class="actions">
+        <button id="again" class="btn ghost">Otra imagen</button>
+        <button id="redo" class="btn ghost">Reprocesar</button>
+        <button id="dl-png" class="btn ghost">PNG</button>
+        <button id="dl-svg" class="btn primary">Descargar SVG</button>
+      </div>
+    </div>
+    <div id="cmp" class="cmp">
+      <div class="checker"></div>
+      <img id="orig" alt="Original">
+      <div id="vec" class="vec"></div>
+      <div id="handle" class="handle"><span>◀ ▶</span></div>
+      <span class="tag l">Original</span><span class="tag r">Vector</span>
+    </div>
+    <p class="hint">Rueda del ratón para ampliar · arrastra para mover · la línea divisoria compara original y vector.</p>
+  </section>
+
+  <div id="busy" class="busy" hidden><div class="spin"></div><p>Vectorizando… las imágenes grandes pueden tardar unos segundos.</p></div>
+  <div id="err" class="err" hidden></div>
+
+  <section id="como" class="info">
+    <h2>Cómo funciona</h2>
+    <ol>
+      <li><b>Amplía y limpia</b> la imagen a hasta 4096 px para ganar precisión subpíxel y suavizar ruido de compresión.</li>
+      <li><b>Agrupa colores</b> en regiones coherentes (clustering jerárquico) y las apila en capas.</li>
+      <li><b>Ajusta curvas Bézier</b> a cada contorno, preservando esquinas vivas y reduciendo nodos.</li>
+      <li><b>Optimiza el SVG</b> para que pese poco y abra bien en Illustrator, Figma, Inkscape o el navegador.</li>
+    </ol>
+  </section>
+
+  <section id="faq" class="info">
+    <h2>Preguntas frecuentes</h2>
+    <details><summary>¿Qué imágenes dan mejor resultado?</summary><p>Logos, iconos, ilustraciones y dibujos. Cuanto mayor y más nítida la fuente, mejor. Las fotos se convierten en arte vectorial estilizado.</p></details>
+    <details><summary>¿Se guardan mis imágenes?</summary><p>No. Se procesan en memoria y se descartan al responder.</p></details>
+    <details><summary>¿Cómo mejoro un resultado?</summary><p>Prueba otro tipo de imagen y en ajustes avanzados sube “Colores” para más detalle, o “Eliminar motas” para un resultado más limpio.</p></details>
+  </section>
+</main>
+
+<footer>Hecho con VTracer · sharp · Node.js</footer>
+<script src="app.js"></script>
+</body>
+</html>
