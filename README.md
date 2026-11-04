@@ -14,7 +14,8 @@ Pipeline (`server.js`):
 3. **Degradados** (`lib/gradients.js`): las bandas vecinas de tono parecido se fusionan solo si los píxeles
    originales de la unión se explican con un perfil de color lineal; se emite un `linearGradient`.
 4. **Trazado** con VTracer (`@neplex/vectorizer`), formas recortadas sin solapes.
-5. **Bordes limpios** (`lib/smooth.js`): remuestreo, detección de esquinas, filtro Taubin (sin encoger curvas) y
+5. **Bordes limpios** (`lib/smooth.js`): remuestreo, esquinas, filtro Taubin (sin encoger curvas), rectas exactas
+   (alineadas con el eje, esquinas como intersección de rectas, filetes como arco) y
    reajuste con pocas Béziers cúbicas (Schneider). Quita las ondulaciones que deja el raster.
 6. **Arcos exactos** (`lib/shapes.js`): los subtrazados que son círculos/elipses se reemplazan por arcos `A`.
 7. **Relleno de huecos**: trazo fino del mismo color que cada forma para tapar costuras.
